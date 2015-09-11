@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<title>Todo List</title>
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="css/jquery-ui.css" type="text/css" />
+		<link rel="stylesheet" href="css/style.css" type="text/css">
+		<!-- /CSS -->
+
+		<!-- Javascript -->
+
+		<script src="js/head.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		// loading my scripts
+		head.js(
+			{jquery: "js/jquery.js"}, 
+			{knockout: "js/knockout.js"},
+			{jqueryui: "js/jquery-ui.js"},
+			"js/app.js"
+		);
+		</script>
+
+		<!-- /Javascript -->
+
+	</head>
+	<body>
+		<div id="top">
+			<h3><span class="tasks-left" data-bind="text: completedTasks" ></span> tasks to do</h3>
+		</div>
+		<div id="main-container"> 
+		  
+			<!-- Input Container where new tasks can be added -->
+			<section id="input-container">
+				<form data-bind="submit: addTask">
+					<input class="new-task" type="text" name="task-input" id="task-input" data-bind="value: newTask"/>
+					<input class="addIcon" type="image" src="images/add.png" alt="+" />
+				</form>
+			</section>
+			<!-- end input-container --> 
+			<br/>
+			<!-- Task Container where tasks are located -->
+			<section id="task-container">
+				<!-- task list -->
+				<div class="task-list" data-bind="foreach: tasks">
+					<article class="task animated setup" data-bind=" css: { completed: completion() == true, esconde: editing() == true}"> 
+						<a href="javascript:void(0)"class="checkbox" data-bind="click: completeTask, html: completeContent"></a>
+						<label class="task-name" data-bind="text: task, event: { dblclick: $root.editTask }"></label> 
+						<input class="editText" data-bind="value: task, valueUpdate: 'afterkeydown', enterKey: $root.saveEditing, escapeKey: $root.saveEditing, selectAndFocus: editing, event: { blur: $root.saveEditing }">
+						<span>&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+						<input type="text" class="task-date" data-bind="dtpicker: date, value: date" readonly/>
+						<a href="javascript:void(0)" class="task-remove" data-bind="click: $root.removeTask">X</a> 
+					</article>
+				</div>
+				<!-- /task-list --> 
+			</section>
+			<footer id="info">
+					<p>Double-click to edit a todo</p>
+			</footer>
+		</div>
+	</body>
+</html>
